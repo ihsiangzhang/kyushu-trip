@@ -5,7 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>九州六天五晚行程</title>
         <link rel="stylesheet" href="style.css">
-        <!-- 移除高德地图 API -->
+        <script src="script.js"></script>
+        <!-- 更新 Google Maps API 加载方式 -->
+        <script async
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOv7wp9R2iphIUxKo02OrN2Y-j8WMGkAY&callback=initMap">
+        </script>
     </head>
 <body>
     <div class="travel-container">
@@ -55,7 +59,7 @@
                         </div>
                     </div>
                     <div class="timeline-item">
-                        <div class="time">13:00-15:00</div>
+                        <div class="time">13:00-14:30</div>
                         <div class="event">
                             <h3>🚄 乘坐新干线</h3>
                             <p>JR九州新干线"樱岛号"直达鹿儿岛</p>
@@ -65,13 +69,27 @@
                         <div class="time">15:00</div>
                         <div class="event">
                             <h3>🏨 入住酒店</h3>
-                            <p>办理入住手续</p>
+                            <p>鹿儿岛金生町里士满酒店</p>
+                            <p>Richmond Hotel Kinseicho Kagoshima</p>
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="time">16:00</div>
                         <div class="event">
-                            <h3>🗻 城山展望台</h3>
+                            <h3>
+                                <span class="spot-name">
+                                    🗻 城山展望台
+                                    <div class="spot-info">
+                                        <h4>城山展望台</h4>
+                                        <p>位于鹿儿岛市中心的城山山顶，是欣赏樱岛火山和鹿儿岛市全景的最佳地点。这里可以360度环视鹿儿岛湾、樱岛火山和市区全景。</p>
+                                        <div class="spot-details">
+                                            <span>⏰ 全天开放</span>
+                                            <span>💰 免费</span>
+                                            <span>🚶‍♂️ 建议游览1小时</span>
+                                        </div>
+                                    </div>
+                                </span>
+                            </h3>
                             <p>俯瞰樱岛火山 & 鹿儿岛市区</p>
                         </div>
                     </div>
@@ -84,8 +102,24 @@
                     </div>
                 </div>
                 <a href="https://www.xiaohongshu.com/explore/67527ae60000000002038959?xsec_token=ABQfbRFgo_fYrqQHBWT5Xg-5x7YA95sm--3VgxyZ8w6Hk=&xsec_source=pc_collect" class="xhs-link" target="_blank">📱 小红书：鹿儿岛一日游攻略</a>
+                
+                <!-- 添加住宿信息 -->
+                <div class="accommodation-info">
+                    <h3>今日住宿</h3>
+                    <p class="hotel-name">鹿儿岛金生町里士满酒店</p>
+                    <p class="hotel-english-name">Richmond Hotel Kinseicho Kagoshima</p>
+                    <p class="hotel-address">鹿儿岛县鹿儿岛市金生町2-12</p>
+                    <div class="hotel-features">
+                        <span class="hotel-feature">靠近鹿儿岛中央站</span>
+                        <span class="hotel-feature">免费WiFi</span>
+                    </div>
+                </div>
+                
+                <!-- 添加地图容器 -->
+                <div class="map-container" id="map-day1"></div>
             </div>
 
+            <!-- Add map container to each day content div -->
             <div class="day-content" id="day2">
                 <h2>🌋 Day 2：樱岛火山 → 指宿温泉</h2>
                 <div class="weather-info">
@@ -112,14 +146,26 @@
                     <div class="timeline-item">
                         <div class="time">上午</div>
                         <div class="event">
-                            <h3>🎯 选择行程</h3>
+                            <h3>🎯 可选行程</h3>
                             <div class="activity-options">
                                 <button class="option-button active" data-activity="sengan">🏯 仙岩园行程</button>
                                 <button class="option-button" data-activity="sakurajima">🌋 樱岛火山行程</button>
                             </div>
                             <div class="activity-content active" id="sengan-content">
-                                <h4>仙岩园行程</h4>
-                                <p>世界文化遗产，岛津家族庭园+樱岛背景</p>
+                                <h3>
+                                    <span class="spot-name">
+                                        🏯 仙岩园
+                                        <div class="spot-info">
+                                            <h4>仙岩园</h4>
+                                            <p>建于1658年的岛津家族别墅庭园，是日本著名的回游式庭园，以樱岛火山为借景。被列为日本文化遗产，园内还有岛津家族的别邸。</p>
+                                            <div class="spot-details">
+                                                <span>⏰ 8:30-17:30</span>
+                                                <span>💰 1000日元</span>
+                                                <span>🚶‍♂️ 建议游览2小时</span>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </h3>
                                 <ul class="activity-list">
                                     <li>参观仙岩园庭院</li>
                                     <li>游览岛津家别邸</li>
@@ -128,7 +174,20 @@
                                 </ul>
                             </div>
                             <div class="activity-content" id="sakurajima-content">
-                                <h4>樱岛火山行程</h4>
+                                <h3>
+                                    <span class="spot-name">
+                                        🌋 樱岛火山
+                                        <div class="spot-info">
+                                            <h4>樱岛火山</h4>
+                                            <p>日本最活跃的火山之一，位于鹿儿岛湾内。可乘坐渡轮前往，参观熔岩展望台、足汤等景点。火山仍在活动中，是鹿儿岛的象征。</p>
+                                            <div class="spot-details">
+                                                <span>⏰ 全天开放</span>
+                                                <span>💰 渡轮约200日元</span>
+                                                <span>🚶‍♂️ 建议游览半天</span>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </h3>
                                 <ul class="activity-list">
                                     <li>乘市电+渡轮前往樱岛</li>
                                     <li>汤之平展望所（最佳火山观景点）</li>
@@ -142,12 +201,43 @@
                         <div class="time">15:30-18:00</div>
                         <div class="event">
                             <h3>♨️ 前往指宿</h3>
-                            <p>JR一小时直达，入住温泉酒店</p>
-                            <p>享受温泉和怀石料理</p>
+                            <p>JR一小时直达，入住指宿皇家酒店</p>
+
+                            <h3>
+                                <span class="spot-name">
+                                    ⛱️ 指宿砂浴
+                                    <div class="spot-info">
+                                        <h4>指宿砂浴</h4>
+                                        <p>日本独特的温泉体验，游客穿着浴衣被埋在由地热加热的黑沙中。砂浴有助于促进血液循环，是指宿最著名的体验。</p>
+                                        <div class="spot-details">
+                                            <span>⏰ 8:30-18:00</span>
+                                            <span>💰 约1500日元</span>
+                                            <span>🚶‍♂️ 建议体验30分钟</span>
+                                        </div>
+                                    </div>
+                                </span>
+                            </h3>
+                            <p>酒店15:30-18:00每半小时一班车前往砂浴馆</p>
                         </div>
                     </div>
                 </div>
                 <a href="https://www.xiaohongshu.com/explore/67aef0ab000000002903a674?xsec_token=ABnWEZfdeP_pof5_J6wglcUz3ZLkfByxWU6tI_ID3okQ0=&xsec_source=pc_collect" class="xhs-link" target="_blank">📱 小红书：樱岛+指宿温泉攻略</a>
+                
+                <!-- 添加住宿信息 -->
+                <div class="accommodation-info">
+                    <h3>今日住宿</h3>
+                    <p class="hotel-name">指宿皇家酒店</p>
+                    <p class="hotel-english-name">Ibusuki Royal Hotel</p>
+                    <p class="hotel-address">鹿儿岛县指宿市十二町3805</p>
+                    <div class="hotel-features">
+                        <span class="hotel-feature">海景温泉</span>
+                        <span class="hotel-feature">砂浴设施</span>
+                        <span class="hotel-feature">含早餐</span>
+                    </div>
+                </div>
+                
+                <!-- 添加地图容器 -->
+                <div class="map-container" id="map-day2"></div>
             </div>
 
             <div class="day-content" id="day3">
@@ -176,14 +266,40 @@
                     <div class="timeline-item">
                         <div class="time">上午</div>
                         <div class="event">
-                            <h3>🏖️ 指宿砂蒸温泉体验</h3>
-                            <p>体验独特的砂浴温泉</p>
+                            <h3>
+                                <span class="spot-name">
+                                    🌊 长崎鼻
+                                    <div class="spot-info">
+                                        <h4>长崎鼻</h4>
+                                        <p>位于指宿最南端的海岸岬角，有著名的"薩摩富士"形状的岩石和灯塔。这里可以欣赏到壮观的太平洋景色，是摄影爱好者的天堂。</p>
+                                        <div class="spot-details">
+                                            <span>⏰ 全天开放</span>
+                                            <span>💰 免费</span>
+                                            <span>🚶‍♂️ 建议游览1小时</span>
+                                        </div>
+                                    </div>
+                                </span>
+                            </h3>
+                            <p>日本最南JR站，海上鸟居</p>
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="time">下午</div>
                         <div class="event">
-                            <h3>🏯 熊本城游览</h3>
+                            <h3>
+                                <span class="spot-name">
+                                    🏯 熊本城
+                                    <div class="spot-info">
+                                        <h4>熊本城</h4>
+                                        <p>日本三大名城之一，建于1607年。2016年地震后进行了大规模修复，现已部分开放。以其黑色外墙和独特的建筑风格闻名，是熊本的象征。</p>
+                                        <div class="spot-details">
+                                            <span>⏰ 9:00-17:00</span>
+                                            <span>💰 800日元</span>
+                                            <span>🚶‍♂️ 建议游览2-3小时</span>
+                                        </div>
+                                    </div>
+                                </span>
+                            </h3>
                             <p>探访日本三大名城之一</p>
                         </div>
                     </div>
@@ -196,6 +312,21 @@
                     </div>
                 </div>
                 <a href="https://www.xiaohongshu.com/explore/671a396a000000001402fdeb?xsec_token=ABHx1Asn_3zLdovSogSDxvjtcen_fVABex4IQq4UpUncQ=&xsec_source=pc_search&source=web_profile_page" class="xhs-link" target="_blank">📱 小红书：熊本城一日游攻略</a>
+                
+                <!-- 添加住宿信息 -->
+                <div class="accommodation-info">
+                    <h3>今日住宿</h3>
+                    <p class="hotel-name">熊本MYSTAYS酒店</p>
+                    <p class="hotel-english-name">HOTEL MYSTAYS Kumamoto Castle</p>
+                    <p class="hotel-address">熊本县熊本市中央区城东町5-16</p>
+                    <div class="hotel-features">
+                        <span class="hotel-feature">靠近熊本城</span>
+                        <span class="hotel-feature">免费WiFi</span>
+                    </div>
+                </div>
+                
+                <!-- 添加地图容器 -->
+                <div class="map-container" id="map-day3"></div>
             </div>
 
             <div class="day-content" id="day4">
@@ -247,15 +378,41 @@
                     <div class="timeline-item">
                         <div class="time">下午</div>
                         <div class="event">
-                            <h3>阿苏火山游览</h3>
+                            <h3>
+                                <span class="spot-name">
+                                    🌋 阿苏火山
+                                    <div class="spot-info">
+                                        <h4>阿苏火山</h4>
+                                        <p>世界最大级别的活火山口之一，由五座火山组成。中岳火口可近距离观察活火山现象，周围有广阔的草原和温泉区。</p>
+                                        <div class="spot-details">
+                                            <span>⏰ 9:00-17:00</span>
+                                            <span>💰 火口区1000日元</span>
+                                            <span>🚶‍♂️ 建议游览半天</span>
+                                        </div>
+                                    </div>
+                                </span>
+                            </h3>
                             <ul>
-                                <li>草千里展望台</li>
-                                <li>阿苏中岳火口</li>
+                                <p>⛰️ 草千里展望台 & ♨️ 阿苏中岳火口 & ⛩️ 上色熊野神社</p>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <a href="https://www.xiaohongshu.com/explore/66fc9234000000002c01585d?xsec_token=ABvnGJY-r9vmzbfzQogQIS-3Xb7XBW03nEVTyfGlUX0BI=&xsec_source=pc_collect" class="xhs-link" target="_blank">📱 小红书：阿苏火山游览全攻略</a>
+                <!-- 添加住宿信息 -->
+                <div class="accommodation-info">
+                    <h3>今日住宿</h3>
+                    <p class="hotel-name">熊本MYSTAYS酒店</p>
+                    <p class="hotel-english-name">HOTEL MYSTAYS Kumamoto Castle</p>
+                    <p class="hotel-address">熊本县熊本市中央区城东町5-16</p>
+                    <div class="hotel-features">
+                        <span class="hotel-feature">靠近熊本城</span>
+                        <span class="hotel-feature">免费WiFi</span>
+                    </div>
+                </div>
+                
+                <!-- 添加地图容器 -->
+                <div class="map-container" id="map-day4"></div>
             </div>
 
             <div class="day-content" id="day5">
@@ -284,14 +441,27 @@
                     <div class="timeline-item">
                         <div class="time">整天</div>
                         <div class="event">
-                            <h3>🎊 福冈自由活动</h3>
+                            <h3>🎊 可选行程</h3>
                             <div class="activity-options">
                                 <button class="option-button active" data-activity="shopping">🛍️ 逛街购物</button>
                                 <button class="option-button" data-activity="shrine">⛩️ 神社参拜</button>
                                 <button class="option-button" data-activity="itoshima">🏖️ 糸岛海边</button>
                             </div>
                             <div class="activity-content active" id="shopping-content">
-                                <h4>福冈购物攻略</h4>
+                                <h3>
+                                    <span class="spot-name">
+                                        🛍️ 天神地区
+                                        <div class="spot-info">
+                                            <h4>天神地区</h4>
+                                            <p>福冈最繁华的商业区，聚集了各类百货公司、时尚品牌和特色小店。地下街发达，是购物、美食和娱乐的中心地带。</p>
+                                            <div class="spot-details">
+                                                <span>⏰ 店铺通常10:00-20:00</span>
+                                                <span>💰 免费参观</span>
+                                                <span>🚶‍♂️ 建议游览半天</span>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </h3>
                                 <ul class="activity-list">
                                     <li>天神地下街</li>
                                     <li>Canal City博多</li>
@@ -300,7 +470,20 @@
                                 </ul>
                             </div>
                             <div class="activity-content" id="shrine-content">
-                                <h4>福冈神社巡礼</h4>
+                                <h3>
+                                    <span class="spot-name">
+                                        ⛩️ 太宰府天满宫
+                                        <div class="spot-info">
+                                            <h4>太宰府天满宫</h4>
+                                            <p>供奉学问之神菅原道真的神社，是日本学生祈求学业有成的圣地。神社周边有特色街道，著名建筑包括隈研吾设计的星巴克。</p>
+                                            <div class="spot-details">
+                                                <span>⏰ 6:00-19:00</span>
+                                                <span>💰 免费参拜</span>
+                                                <span>🚶‍♂️ 建议游览2小时</span>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </h3>
                                 <ul class="activity-list">
                                     <li>太宰府天满宫</li>
                                     <li>筥崎宫</li>
@@ -308,7 +491,20 @@
                                 </ul>
                             </div>
                             <div class="activity-content" id="itoshima-content">
-                                <h4>糸岛海边游览</h4>
+                                <h3>
+                                    <span class="spot-name">
+                                        🏖️ 糸岛海滩
+                                        <div class="spot-info">
+                                            <h4>糸岛海滩</h4>
+                                            <p>福冈近郊的美丽海岸线，以夫妇岩和日落美景闻名。这里有多个海滩和咖啡店，是当地人喜爱的度假胜地，也是冲浪爱好者的天堂。</p>
+                                            <div class="spot-details">
+                                                <span>⏰ 全天开放</span>
+                                                <span>💰 免费</span>
+                                                <span>🚶‍♂️ 建议游览半天</span>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </h3>
                                 <ul class="activity-list">
                                     <li>二见ヶ浦の夫婦岩</li>
                                     <li>Palm Beach</li>
@@ -319,6 +515,22 @@
                     </div>
                 </div>
                 <a href="https://www.xiaohongshu.com/explore/67bc1f090000000003029978?xsec_token=ABdQacCFE3ClXWHTeNnPqLwcuA-HRE-MuLzWMg5JfXyTo=&xsec_source=pc_search&source=web_profile_page" class="xhs-link" target="_blank">📱 小红书：福冈市区游玩攻略</a>
+                <!-- 添加地图容器 -->
+                <!-- Day 5 内容中的住宿信息 -->
+                <div class="accommodation-info">
+                    <h3>今日住宿</h3>
+                    <p class="hotel-name">福冈蒙特埃马纳酒店</p>
+                    <p class="hotel-english-name">Hotel Monte Hermana Fukuoka</p>
+                    <p class="hotel-address">福冈县福冈市博多区博多站前3-22-15</p>
+                    <div class="hotel-features">
+                        <span class="hotel-feature">靠近博多站</span>
+                        <span class="hotel-feature">免费WiFi</span>
+                        <span class="hotel-feature">便利购物</span>
+                    </div>
+                </div>
+                
+                <!-- 地图容器 -->
+                <div class="map-container" id="map-day5"></div>
             </div>
 
             <div class="day-content" id="day6">
@@ -513,8 +725,8 @@
                 <div class="sakura-city">
                     <h4>🌸 福冈赏樱</h4>
                     <div class="sakura-details">
-                        <p class="forecast-date">预计开花：3月20日</p>
-                        <p class="forecast-date">预计满开：3月29日</p>
+                        <p class="forecast-date">预计开花：3月23日</p>
+                        <p class="forecast-date">预计满开：3月30日</p>
                         <p class="best-spots">推荐赏樱地点：</p>
                         <ul>
                             <li>舞鹤公园（约1000株樱花）</li>
@@ -537,6 +749,25 @@
                             <li>健康の森公园（约1500株樱花）</li>
                         </ul>
                     </div>
+                </div>
+            </div>
+            
+            <!-- 添加日本气象厅樱花预报链接预览 -->
+            <div class="sakura-forecast-link">
+                <h4>🌸 日本气象厅樱花预报</h4>
+                <div class="forecast-preview">
+                    <a href="https://sakura.weathermap.jp/" target="_blank" class="forecast-link">
+                        <div class="preview-card">
+                            <div class="preview-image">
+                                <img src="images/sakura-forecast.png" alt="日本樱花预报" loading="lazy">
+                            </div>
+                            <div class="preview-content">
+                                <h5>日本樱花开花预测 2025</h5>
+                                <p>日本气象厅官方樱花开花与满开预测地图，实时更新全日本各地区樱花状况。</p>
+                                <span class="preview-url">sakura.weathermap.jp</span>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
