@@ -1,0 +1,849 @@
+:root {
+    --primary-color: #07C160;
+    --primary-light: rgba(7, 193, 96, 0.1);
+    --secondary-color: #666;
+    --background-color: #F7F7F7;
+    --card-background: #fff;
+    --text-color: #333;
+    --light-gray: #f5f5f5;
+    --timeline-color: #e0e6ed;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+.travel-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+}
+
+header h1 {
+    color: var(--primary-color);
+    font-size: 2.6rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 1.5rem;
+}
+
+header h1::before {
+    content: '🗾';
+    font-size: 2rem;
+}
+
+.title-translations {
+    margin: 1rem 0 1.8rem;
+    color: rgba(0, 0, 0, 0.55);
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.8;
+}
+
+.title-translations span {
+    display: inline-block;
+    margin: 0 0.8rem;
+}
+
+.title-translations span:not(:last-child)::after {
+    content: '•';
+    margin-left: 1rem;
+    opacity: 0.5;
+}
+
+.subtitle {
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 1.2rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.day-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-bottom: 2.5rem;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tab-button {
+    padding: 0.8rem 1.8rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: white;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-size: 1rem;
+    font-weight: 500;
+    position: relative;
+    min-width: 100px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.tab-button:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background-color: var(--primary-light);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.tab-button.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(7, 193, 96, 0.2);
+}
+
+.tab-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+}
+
+.day-content {
+    display: none;
+    background-color: var(--card-background);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.day-content h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.day-content.active {
+    display: block;
+}
+
+.timeline {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background-color: #eee;
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 2rem;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -4px;
+    top: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    box-shadow: 0 0 0 4px var(--primary-light);
+}
+
+.time {
+    font-weight: 500;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.time::before {
+    content: '⏰';
+    font-size: 0.9rem;
+}
+
+.event h3 {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.event p {
+    color: #666;
+}
+
+.transport-options, .activity-options {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.option {
+    flex: 1;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.option-button {
+    padding: 0.8rem 1.5rem;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    background-color: white;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.option-button.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.activity-content {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background-color: var(--light-gray);
+    border-radius: 4px;
+}
+
+.activity-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.activity-list {
+    list-style: none;
+    padding: 0;
+}
+
+.activity-list li {
+    margin: 0.8rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.activity-list li::before {
+    content: "•";
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    position: absolute;
+    left: 0;
+    top: -0.2rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.weather-widget {
+    margin-top: 2rem;
+    padding: 2rem;
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.weather-widget h3 {
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1.4rem;
+}
+
+.weather-widget h3::before {
+    content: '🌤️';
+}
+
+.weather-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+}
+
+.weather-item {
+    padding: 1.2rem;
+    text-align: center;
+    background-color: var(--background-color);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    border: 1px solid #eee;
+}
+
+.weather-item:hover {
+    background-color: var(--primary-light);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.weather-item .date {
+    color: var(--primary-color);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.weather-item .day {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+
+.weather-item .temperature {
+    font-size: 1.8rem;
+    margin: 0.8rem 0;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.weather-item .weather-desc {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 1024px) {
+    .weather-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .weather-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .weather-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .weather-item {
+        padding: 1.5rem;
+    }
+    
+    .weather-item .temperature {
+        font-size: 2rem;
+    }
+}
+
+
+/* 交通信息样式 */
+.transport-info {
+    margin-top: 2rem;
+    padding: 2rem;
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.transport-info h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.4rem;
+}
+
+.transport-info h3::before {
+    content: '🚅';
+}
+
+.transport-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.transport-tab {
+    padding: 0.8rem 1.5rem;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    background-color: white;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.transport-tab:hover {
+    background-color: var(--primary-light);
+    border-color: var(--primary-color);
+}
+
+.transport-tab.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(7, 193, 96, 0.2);
+}
+
+.transport-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.transport-content.active {
+    display: block;
+}
+
+.transport-content h4 {
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.8rem;
+}
+
+.transport-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.transport-item {
+    padding: 1.5rem;
+    background-color: var(--background-color);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    border: 1px solid #eee;
+}
+
+.transport-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-color: var(--primary-color);
+}
+
+.transport-item h5 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.transport-item p {
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.transport-item p:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .transport-tabs {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+        justify-content: flex-start;
+        width: 100%;
+    }
+    
+    .transport-tab {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+    
+    .transport-details {
+        grid-template-columns: 1fr;
+    }
+    
+    .transport-item {
+        padding: 1.2rem;
+    }
+}
+
+.photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.photo-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.photo-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.photo-item p {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 12px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    color: #ffffff;
+    font-size: 0.9em;
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.photo-item:hover img {
+    transform: scale(1.05);
+}
+
+.photo-item:hover p {
+    transform: translateY(0);
+}
+
+@media (max-width: 1024px) {
+    .photo-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .photo-gallery {
+        grid-template-columns: 1fr;
+    }
+    
+    .photo-item {
+        aspect-ratio: 16/9;
+    }
+    
+    .photo-item p {
+        transform: translateY(0);
+        background: rgba(0, 0, 0, 0.7);
+    }
+}
+
+.weather-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    margin: -0.5rem 0 1rem;
+    background-color: var(--background-color);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, 0.75);
+}
+
+.weather-info .date {
+    font-weight: 500;
+}
+
+.weather-info .weather-icon {
+    font-size: 1.2rem;
+}
+
+.weather-info .temperature {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.weather-info .weather-desc {
+    color: rgba(0, 0, 0, 0.65);
+}
+
+/* 美食攻略样式 */
+.food-guide {
+    margin-top: 2rem;
+    padding: 2rem;
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.food-guide h3 {
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.food-guide h3::before {
+    content: '🍱';
+}
+
+.food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.food-item {
+    background: #fff;
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.food-header {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.food-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%);
+    z-index: 1;
+}
+
+.food-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.food-item:hover .food-header img {
+    transform: scale(1.05);
+}
+
+.food-header h4 {
+    position: absolute;
+    bottom: 1rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    color: #fff;
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+    z-index: 2;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    letter-spacing: 0.5px;
+}
+
+.food-item .xhs-link {
+    display: block;
+    margin: 1rem 1.5rem;
+    padding-bottom: 1rem;
+    color: #ff2442;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+}
+
+.food-item .xhs-link:hover {
+    color: #ff4d66;
+    text-decoration: underline;
+}
+
+.food-list {
+    padding: 0 1.5rem 1.5rem;
+}
+
+.food-list li {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.food-list li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.food-name {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+}
+
+.food-desc {
+    display: block;
+    font-size: 0.9rem;
+    color: rgba(0,0,0,0.6);
+}
+
+/* 樱花预报样式 */
+.sakura-forecast {
+    margin-top: 2rem;
+    padding: 2rem;
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.sakura-forecast h3 {
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sakura-forecast h3::before {
+    content: '🌸';
+}
+
+.sakura-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.sakura-city {
+    padding: 1.5rem;
+    background-color: var(--background-color);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.sakura-city:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.sakura-city h4 {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.sakura-details .forecast-date {
+    color: var(--primary-color);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.sakura-details .best-spots {
+    margin: 1rem 0 0.5rem;
+    font-weight: 500;
+}
+
+.sakura-details ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sakura-details li {
+    margin: 0.5rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+}
+
+.sakura-details li::before {
+    content: '🌸';
+    position: absolute;
+    left: 0;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+    .food-grid, .sakura-info {
+        grid-template-columns: 1fr;
+    }
+    
+    .food-item, .sakura-city {
+        margin-bottom: 1rem;
+    }
+}
+
+.xhs-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #ff2442;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.xhs-link:hover {
+    color: #ff4d66;
+    text-decoration: underline;
+}
+.data-source {
+    display: block;
+    color: #999;
+    font-size: 0.65rem;  /* 减小字体大小 */
+    margin-top: 0.3rem;  /* 减小上边距 */
+    font-style: italic;
+    letter-spacing: 0.02em;  /* 添加字间距 */
+    opacity: 0.8;  /* 降低不透明度 */
+}
+
+.weather-info .data-source {
+    margin-top: 0.5rem;
+    font-size: 0.6rem;  /* 天气信息中的来源更小 */
+}
+
+.sakura-forecast .data-source {
+    display: block;
+    text-align: right;
+    margin-bottom: 0.8rem;
+    font-size: 0.6rem;  /* 樱花预报中的来源更小 */
+}
