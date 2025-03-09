@@ -268,9 +268,18 @@ function handleSpotInfoPopups() {
         const spotInfo = spot.querySelector('.spot-info');
         if (!spotInfo) return;
         
+        // 确保整个区域都可点击
+        spot.style.position = 'relative';
+        spot.style.cursor = 'pointer';
+        spot.style.display = 'block';
+        spot.style.width = '100%';
+        
         // 移除触摸事件的默认行为
         spot.addEventListener('touchstart', (e) => {
-            e.preventDefault();
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
         }, { passive: false });
         
         // 使用 click 事件处理移动端和桌面端
