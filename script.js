@@ -155,4 +155,296 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById(`${type}-info`).classList.add('active');
         });
     });
+<<<<<<< HEAD
+    
+    // 添加景点弹出框处理代码
+    handleSpotInfoPopups();
 });
+
+// 处理景点信息弹出框
+function handleSpotInfoPopups() {
+    const spotNames = document.querySelectorAll('.spot-name');
+    
+    // 创建一个单独的模态框容器，而不是为每个spot创建一个
+    const modalContainer = document.createElement('div');
+    modalContainer.className = 'spot-modal-container';
+    modalContainer.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+    `;
+    
+    const modalContent = document.createElement('div');
+    modalContent.className = 'spot-modal-content';
+    modalContent.style.cssText = `
+        background: white;
+        width: 90%;
+        max-width: 350px;
+        max-height: 85vh;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        transform: translateY(20px);
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    `;
+    
+    const modalHeader = document.createElement('div');
+    modalHeader.className = 'spot-modal-header';
+    modalHeader.style.cssText = `
+        padding: 15px 20px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+    `;
+    
+    const modalTitle = document.createElement('h3');
+    modalTitle.className = 'spot-modal-title';
+    modalTitle.style.cssText = `
+        margin: 0;
+        font-size: 18px;
+        color: #333;
+        font-weight: 600;
+    `;
+    
+    const closeButton = document.createElement('button');
+    closeButton.innerHTML = '×';
+    closeButton.className = 'spot-modal-close';
+    closeButton.style.cssText = `
+        background: none;
+        border: none;
+        font-size: 28px;
+        line-height: 1;
+        color: #999;
+        cursor: pointer;
+        padding: 0 5px;
+    `;
+    
+    const modalBody = document.createElement('div');
+    modalBody.className = 'spot-modal-body';
+    modalBody.style.cssText = `
+        padding: 20px;
+        overflow-y: auto;
+        flex: 1;
+    `;
+    
+    modalHeader.appendChild(modalTitle);
+    modalHeader.appendChild(closeButton);
+    modalContent.appendChild(modalHeader);
+    modalContent.appendChild(modalBody);
+    modalContainer.appendChild(modalContent);
+    document.body.appendChild(modalContainer);
+    
+    // 关闭模态框的函数
+    const closeModal = () => {
+        modalContainer.style.opacity = '0';
+        modalContainer.style.visibility = 'hidden';
+        modalContent.style.transform = 'translateY(20px)';
+        document.body.style.overflow = '';
+    };
+    
+    // 点击关闭按钮关闭模态框
+    closeButton.addEventListener('click', closeModal);
+    
+    // 点击模态框外部关闭模态框
+    modalContainer.addEventListener('click', (e) => {
+        if (e.target === modalContainer) {
+            closeModal();
+        }
+    });
+    
+    // 为每个景点名称添加点击事件
+    spotNames.forEach(spot => {
+        const spotInfo = spot.querySelector('.spot-info');
+        if (!spotInfo) return;
+        
+        // 阻止原始的hover效果在移动设备上触发
+        spot.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+        });
+        
+        // 点击显示模态框
+        spot.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // 提取景点信息
+                const title = spotInfo.querySelector('h4')?.textContent || '景点详情';
+                const content = spotInfo.innerHTML;
+                
+                // 更新模态框内容
+                modalTitle.textContent = title;
+                modalBody.innerHTML = content;
+                
+                // 移除模态框内容中的标题，避免重复
+                const contentTitle = modalBody.querySelector('h4');
+                if (contentTitle) {
+                    contentTitle.remove();
+                }
+                
+                // 显示模态框
+                modalContainer.style.visibility = 'visible';
+                modalContainer.style.opacity = '1';
+                modalContent.style.transform = 'translateY(0)';
+                document.body.style.overflow = 'hidden'; // 防止背景滚动
+            }
+        });
+    });
+    
+    // 添加键盘事件监听，按ESC键关闭模态框
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalContainer.style.visibility === 'visible') {
+            closeModal();
+        }
+    });
+    
+    // 在大屏幕上调整原有hover弹出框的样式
+    spotNames.forEach(spot => {
+        const spotInfo = spot.querySelector('.spot-info');
+        if (!spotInfo) return;
+        
+        // 为大屏幕上的弹出框添加样式
+        if (window.innerWidth > 768) {
+            // 调整标题样式
+            const title = spotInfo.querySelector('h4');
+            if (title) {
+                title.style.fontSize = '18px';
+                title.style.marginTop = '0';
+                title.style.marginBottom = '12px';
+                title.style.color = '#000';
+                title.style.fontWeight = '600';
+                title.style.paddingBottom = '10px';
+                title.style.borderBottom = '1px solid #eee'; // 添加标题下方分隔线
+            }
+            
+            // 调整段落样式
+            const paragraphs = spotInfo.querySelectorAll('p');
+            paragraphs.forEach(p => {
+                p.style.fontSize = '16px';
+                p.style.lineHeight = '1.5';
+                p.style.margin = '10px 0'; // 增加上下边距
+                p.style.color = '#555';
+                p.style.fontWeight = '400';
+                p.style.transition = 'none';
+            });
+            
+            // 调整详情样式
+            const details = spotInfo.querySelector('.spot-details');
+            if (details) {
+                details.style.fontSize = '16px';
+                details.style.marginTop = '12px';
+                details.style.fontWeight = '400';
+                details.style.color = '#555';
+                details.style.transition = 'none';
+            }
+            
+            // 调整整体宽度和内边距
+            spotInfo.style.width = '320px';
+            spotInfo.style.padding = '22px'; // 增加内边距
+            spotInfo.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.15)'; // 增强阴影效果
+            
+            // 确保所有文本元素颜色一致
+            const allTextElements = spotInfo.querySelectorAll('*');
+            allTextElements.forEach(el => {
+                el.style.transition = 'none';
+                if (el === allTextElements[allTextElements.length - 1]) {
+                    el.style.color = '#555';
+                }
+            });
+        }
+    });
+    
+    // 在大屏幕上保持原有的hover行为，但调整样式
+    const mediaQuery = window.matchMedia('(min-width: 769px)');
+    
+    const handleMediaChange = (e) => {
+        if (e.matches) {
+            // 大屏幕：恢复原有的hover行为，但应用新样式
+            spotNames.forEach(spot => {
+                const spotInfo = spot.querySelector('.spot-info');
+                if (spotInfo) {
+                    // 保留位置和可见性相关的样式，但应用字体大小调整
+                    spotInfo.style.position = '';
+                    spotInfo.style.visibility = '';
+                    spotInfo.style.opacity = '';
+                    
+                    // 调整标题样式
+                    const title = spotInfo.querySelector('h4');
+                    if (title) {
+                        title.style.fontSize = '18px';
+                        title.style.marginTop = '0';
+                        title.style.marginBottom = '12px';
+                        title.style.color = '#000';
+                        title.style.fontWeight = '600';
+                        title.style.paddingBottom = '10px';
+                        title.style.borderBottom = '1px solid #eee'; // 添加标题下方分隔线
+                    }
+                    
+                    // 调整段落样式
+                    const paragraphs = spotInfo.querySelectorAll('p');
+                    paragraphs.forEach(p => {
+                        p.style.fontSize = '16px';
+                        p.style.lineHeight = '1.5';
+                        p.style.margin = '10px 0'; // 增加上下边距
+                        p.style.color = '#555';
+                        p.style.fontWeight = '400';
+                        p.style.transition = 'none';
+                    });
+                    
+                    // 调整详情样式
+                    const details = spotInfo.querySelector('.spot-details');
+                    if (details) {
+                        details.style.fontSize = '16px';
+                        details.style.marginTop = '12px';
+                        details.style.fontWeight = '400';
+                        details.style.color = '#555';
+                        details.style.transition = 'none';
+                    }
+                    
+                    // 调整整体宽度和内边距
+                    spotInfo.style.width = '320px';
+                    spotInfo.style.padding = '22px'; // 增加内边距
+                    spotInfo.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.15)'; // 增强阴影效果
+                    
+                    // 确保所有文本元素颜色一致
+                    const allTextElements = spotInfo.querySelectorAll('*');
+                    allTextElements.forEach(el => {
+                        el.style.transition = 'none';
+                        if (el === allTextElements[allTextElements.length - 1]) {
+                            el.style.color = '#555';
+                        }
+                    });
+                    
+                    // 移除可能导致颜色变化的类
+                    spotInfo.querySelectorAll('.spot-highlight').forEach(el => {
+                        el.classList.remove('spot-highlight');
+                    });
+                }
+            });
+        }
+    };
+    
+    // 初始检查
+    handleMediaChange(mediaQuery);
+    
+    // 监听屏幕尺寸变化
+    mediaQuery.addEventListener('change', handleMediaChange);
+}
+
+=======
+});
+>>>>>>> ba9a652c2f56c7d7546064dabf458d37f07fe587
