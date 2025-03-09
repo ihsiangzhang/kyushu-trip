@@ -275,6 +275,9 @@ function handleSpotInfoPopups() {
         
         // 使用 click 事件处理移动端和桌面端
         spot.addEventListener('click', function(e) {
+            // 在大屏幕上不触发弹窗
+            if (window.innerWidth > 768) return;
+            
             e.preventDefault();
             e.stopPropagation();
             
@@ -298,6 +301,15 @@ function handleSpotInfoPopups() {
             modalContent.style.transform = 'translateY(0)';
             document.body.style.overflow = 'hidden';
         });
+    });
+    
+    // 点击页面其他地方关闭弹出框
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.spot-name')) {
+            document.querySelectorAll('.spot-info.show').forEach(info => {
+                info.classList.remove('show');
+            });
+        }
     });
     
     // 添加键盘事件监听，按ESC键关闭模态框
