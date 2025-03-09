@@ -552,7 +552,6 @@ header h1::before {
     margin: 2rem 0;
 }
 
-<<<<<<< HEAD
 /* ... 现有代码 ... */
 
 /* 确保所有图片容器中的图片充满容器 */
@@ -588,8 +587,6 @@ header h1::before {
 
 /* ... 现有代码 ... */
 
-=======
->>>>>>> ba9a652c2f56c7d7546064dabf458d37f07fe587
 .photo-item {
     position: relative;
     border-radius: 12px;
@@ -1130,18 +1127,12 @@ header h1::before {
     z-index: 100;
 }
 
-<<<<<<< HEAD
 /* 在大屏幕上使用hover显示弹出框 */
 @media (min-width: 769px) {
     .spot-name:hover .spot-info {
         visibility: visible;
         opacity: 1;
     }
-=======
-.spot-name:hover .spot-info {
-    visibility: visible;
-    opacity: 1;
->>>>>>> ba9a652c2f56c7d7546064dabf458d37f07fe587
 }
 
 .spot-info::after {
@@ -1154,7 +1145,6 @@ header h1::before {
     border-top-color: white;
 }
 
-<<<<<<< HEAD
 /* 在小屏幕上隐藏箭头 */
 @media (max-width: 768px) {
     .spot-info::after {
@@ -1176,43 +1166,6 @@ header h1::before {
 
 /* ... 其他现有样式 ... */
 
-=======
-.spot-info h4 {
-    color: var(--text-color);
-    margin-bottom: 0.8rem;
-    font-size: 1.1rem;
-    border-bottom: 1px solid var(--primary-light);
-    padding-bottom: 0.5rem;
-}
-
-.spot-info p {
-    color: var(--secondary-color);
-    font-size: 0.9rem;
-    line-height: 1.5;
-    margin-bottom: 0.8rem;
-}
-
-.spot-info .spot-details {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;
-    margin-top: 0.8rem;
-    font-size: 0.85rem;
-    color: var(--secondary-color);
-}
-
-.spot-info .spot-details span {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-}
-
-@media (max-width: 768px) {
-    .spot-info {
-        width: 240px;
-    }
-}
->>>>>>> ba9a652c2f56c7d7546064dabf458d37f07fe587
 
 /* 为整个容器添加底部边距 */
 .travel-container {
