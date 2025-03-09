@@ -155,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById(`${type}-info`).classList.add('active');
         });
     });
-<<<<<<< HEAD
     
     // 添加景点弹出框处理代码
     handleSpotInfoPopups();
@@ -445,6 +444,3 @@ function handleSpotInfoPopups() {
     mediaQuery.addEventListener('change', handleMediaChange);
 }
 
-=======
-});
->>>>>>> ba9a652c2f56c7d7546064dabf458d37f07fe587
