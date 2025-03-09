@@ -163,8 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // 处理景点信息弹出框
 function handleSpotInfoPopups() {
     const spotNames = document.querySelectorAll('.spot-name');
-    
-    // 创建一个单独的模态框容器，而不是为每个spot创建一个
     const modalContainer = document.createElement('div');
     modalContainer.className = 'spot-modal-container';
     modalContainer.style.cssText = `
@@ -265,42 +263,40 @@ function handleSpotInfoPopups() {
         }
     });
     
-    // 为每个景点名称添加点击事件
+    // 修改点击事件处理
     spotNames.forEach(spot => {
         const spotInfo = spot.querySelector('.spot-info');
         if (!spotInfo) return;
         
-        // 阻止原始的hover效果在移动设备上触发
+        // 移除触摸事件的默认行为
         spot.addEventListener('touchstart', (e) => {
             e.preventDefault();
-        });
+        }, { passive: false });
         
-        // 点击显示模态框
+        // 使用 click 事件处理移动端和桌面端
         spot.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                // 提取景点信息
-                const title = spotInfo.querySelector('h4')?.textContent || '景点详情';
-                const content = spotInfo.innerHTML;
-                
-                // 更新模态框内容
-                modalTitle.textContent = title;
-                modalBody.innerHTML = content;
-                
-                // 移除模态框内容中的标题，避免重复
-                const contentTitle = modalBody.querySelector('h4');
-                if (contentTitle) {
-                    contentTitle.remove();
-                }
-                
-                // 显示模态框
-                modalContainer.style.visibility = 'visible';
-                modalContainer.style.opacity = '1';
-                modalContent.style.transform = 'translateY(0)';
-                document.body.style.overflow = 'hidden'; // 防止背景滚动
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // 提取景点信息
+            const title = spotInfo.querySelector('h4')?.textContent || '景点详情';
+            const content = spotInfo.innerHTML;
+            
+            // 更新模态框内容
+            modalTitle.textContent = title;
+            modalBody.innerHTML = content;
+            
+            // 移除模态框内容中的标题，避免重复
+            const contentTitle = modalBody.querySelector('h4');
+            if (contentTitle) {
+                contentTitle.remove();
             }
+            
+            // 显示模态框
+            modalContainer.style.visibility = 'visible';
+            modalContainer.style.opacity = '1';
+            modalContent.style.transform = 'translateY(0)';
+            document.body.style.overflow = 'hidden';
         });
     });
     
