@@ -591,7 +591,23 @@ header h1::before {
     position: relative;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 200px;
+}
+
+.photo-item p {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 12px;
+    background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+    color: #ffffff;
+    font-size: 0.9em;
+    text-align: center;
+    z-index: 2;
+    transform: translateY(100%);  /* 默认隐藏 */
+    transition: transform 0.3s ease;  /* 添加过渡效果 */
 }
 
 .photo-item img {
@@ -602,20 +618,6 @@ header h1::before {
     transition: transform 0.3s ease;
 }
 
-.photo-item p {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: 0;
-    padding: 12px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-    color: #ffffff;
-    font-size: 0.9em;
-    text-align: center;
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
-}
 
 .photo-item:hover img {
     transform: scale(1.05);
@@ -641,8 +643,8 @@ header h1::before {
     }
     
     .photo-item p {
-        transform: translateY(0);
-        background: rgba(0, 0, 0, 0.7);
+        transform: translateY(0);  /* 在移动端始终显示 */
+        background: linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0));
     }
 }
 
@@ -726,7 +728,8 @@ header h1::before {
     left: 0;
     right: 0;
     height: 50%;
-    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%);
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+    pointer-events: none;
     z-index: 1;
 }
 
