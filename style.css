@@ -552,6 +552,44 @@ header h1::before {
     margin: 2rem 0;
 }
 
+<<<<<<< HEAD
+/* ... 现有代码 ... */
+
+/* 确保所有图片容器中的图片充满容器 */
+.photo-item img,
+.food-header img,
+.preview-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 关键属性：确保图片填满容器并保持宽高比 */
+    object-position: center; /* 确保图片居中裁剪 */
+}
+
+/* 为照片画廊中的图片容器设置固定高度 */
+.photo-item {
+    /* ... 现有样式 ... */
+    height: 200px; /* 可以根据需要调整高度 */
+    overflow: hidden; /* 确保溢出的图片部分被隐藏 */
+}
+
+/* 为美食头部图片设置固定高度 */
+.food-header {
+    /* ... 现有样式 ... */
+    height: 180px; /* 可以根据需要调整高度 */
+    overflow: hidden;
+}
+
+/* 为预览图片设置固定高度 */
+.preview-image {
+    /* ... 现有样式 ... */
+    height: 150px; /* 可以根据需要调整高度 */
+    overflow: hidden;
+}
+
+/* ... 现有代码 ... */
+
+=======
+>>>>>>> ba9a652c2f56c7d7546064dabf458d37f07fe587
 .photo-item {
     position: relative;
     border-radius: 12px;
@@ -1092,9 +1130,18 @@ header h1::before {
     z-index: 100;
 }
 
+<<<<<<< HEAD
+/* 在大屏幕上使用hover显示弹出框 */
+@media (min-width: 769px) {
+    .spot-name:hover .spot-info {
+        visibility: visible;
+        opacity: 1;
+    }
+=======
 .spot-name:hover .spot-info {
     visibility: visible;
     opacity: 1;
+>>>>>>> ba9a652c2f56c7d7546064dabf458d37f07fe587
 }
 
 .spot-info::after {
@@ -1107,6 +1154,29 @@ header h1::before {
     border-top-color: white;
 }
 
+<<<<<<< HEAD
+/* 在小屏幕上隐藏箭头 */
+@media (max-width: 768px) {
+    .spot-info::after {
+        display: none;
+    }
+    
+    /* 移除小屏幕上的hover效果 */
+    .spot-name:hover .spot-info {
+        visibility: hidden;
+        opacity: 0;
+    }
+    
+    /* 确保弹出框内容可滚动 */
+    .spot-info {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+}
+
+/* ... 其他现有样式 ... */
+
+=======
 .spot-info h4 {
     color: var(--text-color);
     margin-bottom: 0.8rem;
@@ -1142,6 +1212,7 @@ header h1::before {
         width: 240px;
     }
 }
+>>>>>>> ba9a652c2f56c7d7546064dabf458d37f07fe587
 
 /* 为整个容器添加底部边距 */
 .travel-container {
