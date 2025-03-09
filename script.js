@@ -268,48 +268,52 @@ function handleSpotInfoPopups() {
         const spotInfo = spot.querySelector('.spot-info');
         if (!spotInfo) return;
         
-        // 确保整个区域都可点击
-        spot.style.position = 'relative';
-        spot.style.cursor = 'pointer';
-        spot.style.display = 'block';
-        spot.style.width = '100%';
+        // 检测是否为移动设备
+        const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         
-        // 移除触摸事件的默认行为
-        spot.addEventListener('touchstart', (e) => {
+        // 统一的事件处理函数
+        const handleInteraction = (e) => {
             if (window.innerWidth <= 768) {
                 e.preventDefault();
                 e.stopPropagation();
+                
+                // 提取景点信息
+                const title = spotInfo.querySelector('h4')?.textContent || '景点详情';
+                const content = spotInfo.innerHTML;
+                
+                // 更新模态框内容
+                modalTitle.textContent = title;
+                modalBody.innerHTML = content;
+                
+                // 移除模态框内容中的标题，避免重复
+                const contentTitle = modalBody.querySelector('h4');
+                if (contentTitle) {
+                    contentTitle.remove();
+                }
+                
+                // 显示模态框
+                modalContainer.style.visibility = 'visible';
+                modalContainer.style.opacity = '1';
+                modalContent.style.transform = 'translateY(0)';
+                document.body.style.overflow = 'hidden';
             }
-        }, { passive: false });
+        };
         
-        // 使用 click 事件处理移动端和桌面端
-        spot.addEventListener('click', function(e) {
-            // 在大屏幕上不触发弹窗
-            if (window.innerWidth > 768) return;
+        if (isMobileDevice) {
+            // 移动设备专用样式和事件处理
+            spot.style.position = 'relative';
+            spot.style.cursor = 'pointer';
+            spot.style.display = 'block';
+            spot.style.touchAction = 'manipulation';
             
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // 提取景点信息
-            const title = spotInfo.querySelector('h4')?.textContent || '景点详情';
-            const content = spotInfo.innerHTML;
-            
-            // 更新模态框内容
-            modalTitle.textContent = title;
-            modalBody.innerHTML = content;
-            
-            // 移除模态框内容中的标题，避免重复
-            const contentTitle = modalBody.querySelector('h4');
-            if (contentTitle) {
-                contentTitle.remove();
-            }
-            
-            // 显示模态框
-            modalContainer.style.visibility = 'visible';
-            modalContainer.style.opacity = '1';
-            modalContent.style.transform = 'translateY(0)';
-            document.body.style.overflow = 'hidden';
-        });
+            // 添加移动设备事件监听
+            spot.addEventListener('touchstart', handleInteraction, { passive: false });
+            spot.addEventListener('touchend', (e) => e.preventDefault(), { passive: false });
+        } else {
+            // 桌面设备事件处理
+            spot.style.cursor = 'pointer';
+            spot.addEventListener('click', handleInteraction);
+        }
     });
     
     // 点击页面其他地方关闭弹出框
