@@ -1096,7 +1096,7 @@ header h1::before {
 }
 
 /* 景点介绍悬浮框样式 */
-/* 景点介绍悬浮框样式 */
+/* 修改景点名称的样式，确保在移动端可以正常点击 */
 .spot-name {
     position: relative;
     cursor: pointer;
@@ -1106,6 +1106,8 @@ header h1::before {
     text-underline-offset: 4px;
     display: inline-block;
     transition: color 0.3s ease, transform 0.2s ease;
+    -webkit-tap-highlight-color: transparent; /* 移除移动端点击时的高亮 */
+    touch-action: manipulation; /* 优化移动端触摸操作 */
 }
 
 .spot-name:hover {
@@ -1149,21 +1151,31 @@ header h1::before {
 
 /* 在小屏幕上隐藏箭头 */
 @media (max-width: 768px) {
-    .spot-info::after {
-        display: none;
+    .spot-info {
+        position: fixed; /* 改为固定定位 */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 350px;
+        max-height: 80vh;
+        overflow-y: auto;
+        z-index: 1000;
+        visibility: hidden;
+        opacity: 0;
     }
-    
+
     /* 移除小屏幕上的hover效果 */
     .spot-name:hover .spot-info {
         visibility: hidden;
         opacity: 0;
     }
-    
-    /* 确保弹出框内容可滚动 */
-    .spot-info {
-        max-height: 80vh;
-        overflow-y: auto;
-    }
+}
+
+/* 添加显示类，用于 JavaScript 控制显示状态 */
+.spot-info.show {
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 /* ... 其他现有样式 ... */
