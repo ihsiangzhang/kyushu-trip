@@ -1180,6 +1180,29 @@ header h1::before {
 
 /* ... 其他现有样式 ... */
 
+/* ... existing code ... */
+
+.spot-details .map-link {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 15px;
+    color: #576B95 !important;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.spot-details .map-link:hover {
+    color: #576B95 !important;
+    text-decoration: underline;
+}
+
+.spot-details .map-link::before {
+    margin-right: 6px;
+    font-size: 16px;
+}
+
+/* ... existing code ... */
 
 /* 为整个容器添加底部边距 */
 .travel-container {
